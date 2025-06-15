@@ -1147,7 +1147,18 @@ CONTAINS
    Q2(I)=QSFCMR(I)+(QV1D(I)-QSFCMR(I))*PSIQ2/PSIQ
    Q2(I)= MAX(Q2(I), MIN(QSFCMR(I), QV1D(I)))
    Q2(I)= MIN(Q2(I), 1.05*QV1D(I))
-
+!YS
+   IF (Q2(I) .LT. 0.0) THEN
+       print*,"DEBUG: NEGATIVE Q2 VALUE IN MYNN SFCLAYER",&
+       I,J, "Q2: ",Q2(I)
+       print*,"WARNING: NEGATIVE Q2 SET TO ZERO"
+       Q2(I)=0.0
+   ENDIF
+   IF (QSFC(I) .LT. 0.0) THEN
+       print*,"DEBUG: NEGATIVE QSFC VALUE IN MYNN SFCLAYER",&
+       I,J, "QSFC: ",QSFC(I)
+   ENDIF
+!YS
    IF ( debug_code ) THEN
       yesno = 0
       IF (HFX(I) > 1200. .OR. HFX(I) < -700.)THEN
